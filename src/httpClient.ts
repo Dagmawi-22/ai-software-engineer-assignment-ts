@@ -14,12 +14,12 @@ export class HttpClient {
     opts?: { api?: boolean; headers?: Record<string, string> }
   ): { method: string; path: string; headers: Record<string, string> } {
     const api = opts?.api ?? false;
-    const headers = opts?.headers ?? {};
+    const headers = { ...(opts?.headers ?? {}) };
 
     if (api) {
-      // BUG: truthiness + instanceof check misses the "plain object" token case.
       if (
         !this.oauth2Token ||
+        !(this.oauth2Token instanceof OAuth2Token) ||
         (this.oauth2Token instanceof OAuth2Token && this.oauth2Token.expired)
       ) {
         this.refreshOAuth2();

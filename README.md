@@ -56,7 +56,23 @@ Create `EXPLANATION.md` (max 250 words) containing:
 - **What was the bug?**
 - **Why did it happen?**
 - **Why does your fix solve it?**
-- **One realistic case / edge case your tests still don’t cover**
+- **One realistic case / edge case your tests still don't cover**
+
+## How to run
+
+### Run tests locally
+
+```bash
+npm install
+npm test
+```
+
+### Build and run tests with Docker
+
+```bash
+docker build -t assignment-ts .
+docker run --rm assignment-ts
+```
 
 ## Submission
 
