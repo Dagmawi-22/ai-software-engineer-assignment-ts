@@ -14,7 +14,7 @@ export class HttpClient {
     opts?: { api?: boolean; headers?: Record<string, string> }
   ): { method: string; path: string; headers: Record<string, string> } {
     const api = opts?.api ?? false;
-    const headers = opts?.headers ?? {};
+    const headers = { ...(opts?.headers ?? {}) };
 
     if (api) {
       if (

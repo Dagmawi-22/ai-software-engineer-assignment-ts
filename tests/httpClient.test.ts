@@ -30,4 +30,17 @@ describe("HttpClient OAuth2 behavior", () => {
 
     expect(resp.headers.Authorization).toBe("Bearer fresh-token");
   });
+
+  test("api=true does not mutate caller's opts.headers", () => {
+    const c = new HttpClient();
+    c.oauth2Token = new OAuth2Token("ok", Math.floor(Date.now() / 1000) + 3600);
+    const customHeaders: Record<string, string> = { "X-Custom": "value" };
+    const opts = { api: true, headers: customHeaders };
+
+    const resp = c.request("GET", "/me", opts);
+
+    expect(resp.headers.Authorization).toBe("Bearer ok");
+    expect(resp.headers["X-Custom"]).toBe("value");
+    expect(customHeaders.Authorization).toBeUndefined();
+  });
 });
